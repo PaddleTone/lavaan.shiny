@@ -151,28 +151,28 @@ shinyServer(function(input, output) {
 
     makegcmplot2 <- function(){
       resgcm <- est.gcm()$fit
-      semPaths(resgcm, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(resgcm, "std", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
     }
     makecfaplot2 <- function(){
       rescfa <- est.cfa()$fit
-      semPaths(rescfa, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(rescfa, "std", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
     }
 
     makesemplot2 <- function(){
       ressem <- est.sem()$fit
-      semPaths(ressem, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(ressem, "std", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
     }
 
     output$cfaplot2 <- renderPlot({
-      print(makecfaplot1())
+      print(makecfaplot2())
     })
 
     output$gcmplot2 <- renderPlot({
-      print(makegcmplot1())
+      print(makegcmplot2())
     })
 
     output$semplot2 <- renderPlot({
-      print(makesemplot1())
+      print(makesemplot2())
     })
    ################################################
    # R session info
