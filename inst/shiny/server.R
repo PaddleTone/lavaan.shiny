@@ -78,7 +78,7 @@ shinyServer(function(input, output) {
 
       model <- get.textcfa()
 
-      fit <- cfa(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions)
+      fit <- cfa(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
       list(fit = fit)
     })
@@ -88,7 +88,7 @@ shinyServer(function(input, output) {
 
          model <- get.textgcm()
 
-         fit <- growth(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions)
+         fit <- growth(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
         list(fit = fit)
     })
@@ -98,7 +98,7 @@ shinyServer(function(input, output) {
 
       model <- get.textsem()
 
-      fit <- sem(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions)
+      fit <- sem(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
       list(fit = fit)
     })
