@@ -46,3 +46,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .Rproj.user/1F70E5AD/sdb/s-4AC3DBC8/lock_file
+*.pper
+.RData
+.Rproj.user/53A65F58/cpp-definition-cache
+.Rproj.user/53A65F58/saved_source_markers
+*.Rhistory
