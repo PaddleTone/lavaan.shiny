@@ -1,8 +1,8 @@
-library(shiny)
-library(shinyAce)
-library(psych)
-library(lavaan)
-library(semPlot)
+library("shiny")
+library("shinyAce")
+library("psych")
+library("lavaan")
+library("semPlot")
 shinyServer(function(input, output) {
 
    bscfa <- reactive({
@@ -78,7 +78,8 @@ shinyServer(function(input, output) {
 
       model <- get.textcfa()
 
-      fit <- cfa(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
+      fit <- cfa(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions,
+                 bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
       list(fit = fit)
     })
@@ -88,7 +89,8 @@ shinyServer(function(input, output) {
 
          model <- get.textgcm()
 
-         fit <- growth(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
+         fit <- growth(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions,
+                       bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
         list(fit = fit)
     })
@@ -98,7 +100,8 @@ shinyServer(function(input, output) {
 
       model <- get.textsem()
 
-      fit <- sem(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions, bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
+      fit <- sem(model, data=dat, estimator = input$estimatoroptions, se = input$seoptions,
+                 bootstrap = input$bootstrapoptions, orthogonal = input$orthogonaloptions)
 
       list(fit = fit)
     })
@@ -113,28 +116,26 @@ shinyServer(function(input, output) {
 
         resgcm <- est.gcm()$fit
         summary(resgcm, standardized=TRUE, fit.measures=TRUE)
-
     })
 
     result.sem <- reactive({
 
       ressem <- est.sem()$fit
       summary(ressem, standardized=TRUE, fit.measures=TRUE)
-
     })
 
     makecfaplot1 <- function(){
       rescfa <- est.cfa()$fit
-      semPaths(rescfa, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(rescfa, "par", mar=c(3,4,3,4), style="ram", layout = input$lay, edge.label.cex=.8, fade=F, gray=T)
     }
     makegcmplot1 <- function(){
       resgcm <- est.gcm()$fit
-      semPaths(resgcm, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(resgcm, "par", mar=c(3,4,3,4), style="ram", layout = input$lay, edge.label.cex=.8, fade=F, gray=T)
     }
 
     makesemplot1 <- function(){
       ressem <- est.sem()$fit
-      semPaths(ressem, "par", mar=c(3,4,3,4), style="ram", layout ="tree", edge.label.cex=.8, fade=F, gray=T)
+      semPaths(ressem, "par", mar=c(3,4,3,4), style="ram", layout = input$lay, edge.label.cex=.8, fade=F, gray=T)
     }
 
     output$cfaplot1 <- renderPlot({

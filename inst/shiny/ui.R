@@ -1,5 +1,8 @@
-library(shiny)
-library(shinyAce)
+library("shiny")
+library("shinyAce")
+library("psych")
+library("lavaan")
+library("semPlot")
 
 
 shinyUI(navbarPage(title="lavaan.shiny: latent variable analysis",windowTitle="lavaan.shiny v1.0",
@@ -1012,7 +1015,7 @@ y6 ~~ y8"),
 
 ),
 navbarMenu("Model Options and Settings", icon = icon("wrench", lib = "font-awesome"),
-        tabPanel("Estimator Options", icon = icon("table", lib = "font-awesome"),
+tabPanel("Estimator Options", icon = icon("table", lib = "font-awesome"),
 
                  radioButtons("estimatoroptions", strong("Estimator Options"),
                               c("Maximum likelihood" = "ML",
@@ -1021,14 +1024,53 @@ navbarMenu("Model Options and Settings", icon = icon("wrench", lib = "font-aweso
                                 "Unweighted least squares" = "ULS",
                                 "Diagonally weighted least squares" = "DWLS"
                               ), selected = "ML"),
-#                  radioButtons("likelihoodoptions", strong("Maximum Likelihood Options"),
-#                               c("Normal" = "normal",
-#                                 "Wishart" = "wishart"
-#                               ), selected = "normal"),
 
                  br()
 
         ),
+ tabPanel("Graphic Options", icon = icon("line-chart", lib = "font-awesome"),
+         radioButtons("lay", strong("Plot Layout"),
+                       c("Circle" = "circle",
+                         "Circle2" = "circles",
+                         "Tree" = "tree",
+                         "Tree2" = "tree2",
+                         "Spring" = "spring",
+                         "Spring2" = "spring2"
+                       ), selected = "tree", inline = TRUE),
+         p("Tree"),
+         p("The integrated tree-like layout. Places exogenous variables at the top and endogenous variables at the bottom. See 'details' for more details."),
+         p("Tree2"),
+         p("Calls the layout.reingold.tilford function from the igraph package (Csardi & Nepusz, 2006), which uses the Reingold-Tilford algorithm (Reingold & Tilford, 1981). Before calling the algorithm roots are chosen and a slightly modified version of the graph is used to produce consistent results. See 'details'."),
+         p("Circle"),
+         p("The same layout as tree, except that afterwards the horizontal levels of the layout are placed in circles. Especially useful for models with a large number of manifest variables and a relatively small number of latent variables."),
+         p("Circle2"),
+         p("The same layout as tree2, except that afterwards the horizontal levels of the layout are placed in circles"),
+         p("Spring"),
+         p("Calls the spring layout in qgraph, which uses the Fruchterman-reingold algorithm (Fruchterman & Reingold, 1991)."),
+
+#         br(),
+#         radioButtons("fitmeasures", strong("Fit Measures"),
+#                       c("True" = TRUE,
+#                         "False" = FALSE
+#                       ), selected = "FALSE"),
+#         br(),
+#         radioButtons("standardized", strong("Show Standardized Solution"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+#         br(),
+#         radioButtons("rsq", strong("Show R-Square values for the dependent variables in the model"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+#         br(),
+#         radioButtons("modindices", strong("Print Modification Indices"),
+#                      c("True" = TRUE,
+#                        "False" = FALSE
+#                      ), selected = "FALSE"),
+          br()
+
+ ),
 tabPanel("Model Options", icon = icon("list", lib = "font-awesome"),
 
          radioButtons("orthogonaloptions", strong("Orthogonal"),
@@ -1070,15 +1112,15 @@ tabPanel("Model Options", icon = icon("list", lib = "font-awesome"),
 strong('Author'),
 
 HTML('<div style="clear: left;"><img src="http://kylehamilton.com/wp-content/uploads/2014/11/kyle80.jpg" alt="" style="float: left; margin-right:5px" /></div>'),
-p(a("William Kyle Hamilton - University of California, Merced", href="http://www.kylehamilton.com", target="_blank")),
+p(a("W. Kyle Hamilton - University of California, Merced", href="http://www.kylehamilton.com", target="_blank")),
             br(),
             br(),
 br(),
 br(),
 strong('License'),
 
-p("lavaan.shiny"),
-p(" Copyright 2016  William Kyle Hamilton"),
+p("lavaan.shiny version 1.1"),
+p(" Copyright 2016  W. Kyle Hamilton"),
 
 p(" This program is free software you can redistribute it and or modify
   it under the terms of the GNU General Public License as published by
